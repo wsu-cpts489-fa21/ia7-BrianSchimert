@@ -12,6 +12,7 @@ import CoursesPage from './CoursesPage.js';
 import BuddiesPage from './BuddiesPage.js';
 import SideMenu from './SideMenu.js';
 import AppMode from './AppMode.js';
+import NotificationToast from './NotificationToast.js';
 
 library.add(faWindowClose,faEdit, faCalendar, 
             faSpinner, faSignInAlt, faBars, faTimes, faSearch,
@@ -24,6 +25,10 @@ class App extends React.Component {
     this.state = {mode: AppMode.LOGIN,
                   menuOpen: false,
                   modalOpen: false,
+                  notificationToastOpen: true,
+                  toastTextColor: 'black',
+                  toastBackgroundColor: 'gray', 
+                  toastMessage: "you suck at programming React!",
                   userData: {accountData: {},
                              identityData: {},
                              speedgolfData: {},
@@ -170,9 +175,15 @@ class App extends React.Component {
     this.setState({userData: newUserData});
   }
 
+  closeToast = () => {
+    this.setState({notificationToastOpen: false});
+
+  }
+
   render() {
     return (
       <>
+    
         <NavBar mode={this.state.mode}
                 menuOpen={this.state.menuOpen}
                 toggleMenuOpen={this.toggleMenuOpen}
@@ -184,7 +195,7 @@ class App extends React.Component {
                   setMode={this.setMode} 
                   menuOpen={this.state.menuOpen}
                   modalOpen={this.state.modalOpen}/> 
-        {this.state.menuOpen  ? <SideMenu logOut={this.logOut}/> : null}
+    
         {
           {LoginMode:
             <LoginPage modalOpen={this.state.modalOpen}
@@ -219,6 +230,12 @@ class App extends React.Component {
                         userId={this.state.userId}/>
         }[this.state.mode]
         }
+        {this.state.notificationToastOpen ? <NotificationToast textColor= {this.state.toastTextColor} 
+                                            backgroundColor = {this.state.toastBackgroundColor}
+                                            message = {this.state.toastMessage}   
+                                            closeToast = {this.closeToast} /> 
+                                          : null}
+        {this.state.menuOpen  ? <SideMenu logOut={this.logOut}/> : null}
       </>
     ); 
   }
