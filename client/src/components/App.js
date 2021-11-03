@@ -13,6 +13,7 @@ import BuddiesPage from './BuddiesPage.js';
 import SideMenu from './SideMenu.js';
 import AppMode from './AppMode.js';
 import NotificationToast from './NotificationToast.js';
+import PopUpModal from './PopUpModal.js';
 
 library.add(faWindowClose,faEdit, faCalendar, 
             faSpinner, faSignInAlt, faBars, faTimes, faSearch,
@@ -29,6 +30,10 @@ class App extends React.Component {
                   toastTextColor: 'black',
                   toastBackgroundColor: 'gray', 
                   toastMessage: "you suck at programming React!",
+                  popUpModalOpen: true,
+                  popUpModalText: "you are awesome at programming react!",
+                  popUpModalButtons: {"close": this.closeModal,
+                                      "save": this.closeModal },
                   userData: {accountData: {},
                              identityData: {},
                              speedgolfData: {},
@@ -180,10 +185,14 @@ class App extends React.Component {
 
   }
 
+  closeModal = () => {
+    this.setState({popUpModalOpen : false});
+  }
+
   render() {
     return (
       <>
-    
+
         <NavBar mode={this.state.mode}
                 menuOpen={this.state.menuOpen}
                 toggleMenuOpen={this.toggleMenuOpen}
@@ -235,6 +244,15 @@ class App extends React.Component {
                                             message = {this.state.toastMessage}   
                                             closeToast = {this.closeToast} /> 
                                           : null}
+       
+        {this.state.popUpModalOpen ? <PopUpModal 
+                                          closeModal= {this.closeModal}
+                                          text = {this.state.popUpModalText}
+                                          modalButtons = {this.state.popUpModalButtons}
+                                          /> : 
+        
+                                      null }
+
         {this.state.menuOpen  ? <SideMenu logOut={this.logOut}/> : null}
       </>
     ); 
