@@ -26,12 +26,12 @@ class App extends React.Component {
     this.state = {mode: AppMode.LOGIN,
                   menuOpen: false,
                   modalOpen: false,
-                  notificationToastOpen: true,
+                  notificationToastOpen: false,
                   toastTextColor: 'black',
                   toastBackgroundColor: 'gray', 
-                  toastMessage: "you suck at programming React!",
-                  popUpModalOpen: true,
-                  popUpModalText: "you are awesome at programming react!",
+                  toastMessage: "Round Deleted",
+                  popUpModalOpen: false,
+                  popUpModalText: "Are you sure you want to delete this round?",
                   popUpModalButtons: {"close": this.closeModal,
                                       "save": this.closeModal },
                   userData: {accountData: {},
@@ -226,7 +226,8 @@ class App extends React.Component {
                         modalOpen={this.state.modalOpen}
                         toggleModalOpen={this.toggleModalOpen} 
                         menuOpen={this.state.menuOpen}
-                        userId={this.state.userId}/>,
+                        userId={this.state.userId}
+                        closeModal={this.closeModal}/>,
           CoursesMode:
             <CoursesPage modalOpen={this.state.modalOpen}
                         toggleModalOpen={this.toggleModalOpen} 
@@ -238,20 +239,7 @@ class App extends React.Component {
                         menuOpen={this.state.menuOpen}
                         userId={this.state.userId}/>
         }[this.state.mode]
-        }
-        {this.state.notificationToastOpen ? <NotificationToast textColor= {this.state.toastTextColor} 
-                                            backgroundColor = {this.state.toastBackgroundColor}
-                                            message = {this.state.toastMessage}   
-                                            closeToast = {this.closeToast} /> 
-                                          : null}
-       
-        {this.state.popUpModalOpen ? <PopUpModal 
-                                          closeModal= {this.closeModal}
-                                          text = {this.state.popUpModalText}
-                                          modalButtons = {this.state.popUpModalButtons}
-                                          /> : 
-        
-                                      null }
+  }
 
         {this.state.menuOpen  ? <SideMenu logOut={this.logOut}/> : null}
       </>

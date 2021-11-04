@@ -22,17 +22,17 @@ class PopUpModal extends React.Component {
     render() {
         return(
            <>
-      <Modal show={true} onHide={this.props.closeModal}>
+      <Modal show={true} onHide={this.props.cancelDelete}>
         <Modal.Header closeButton>
         </Modal.Header>
         <Modal.Body> {this.props.text} </Modal.Body>
         <Modal.Footer>
 
-         <Button variant="primary" onClick={this.props.closeModal}>
-            Close
+         <Button variant="primary" onClick={this.props.deleteRound}>
+            Yes, Delete Round.
           </Button>
-          <Button variant="primary" onClick={this.props.closeModal}>
-            Save Changes
+          <Button variant="primary" onClick={this.props.cancelDelete}>
+            Cancel Deletion.
           </Button>
         </Modal.Footer>
       </Modal>
