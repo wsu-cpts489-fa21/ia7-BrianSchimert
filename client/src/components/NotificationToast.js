@@ -8,9 +8,9 @@ class NotificationToast extends React.Component {
 
     render() {
         return (
-            <div style={{color : this.props.textColor, backgroundColor : this.props.backgroundColor}}>
+            <div style={{fontSize : "22px", color : this.props.textColor, backgroundColor : this.props.backgroundColor, display: "flex"}}>
             {this.props.message} 
-            <button onClick= {() => this.props.closeToast()}>
+            <button style={{marginLeft: "auto"}} onClick= {() => this.props.closeToast()}>
                    <FontAwesomeIcon icon={faWindowClose}/>
                 </button>
            
