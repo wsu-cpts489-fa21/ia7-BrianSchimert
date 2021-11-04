@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import logo from '../images/sslogo2.png'
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 
-
+//notification toast
 class NotificationToast extends React.Component {
 
     render() {
