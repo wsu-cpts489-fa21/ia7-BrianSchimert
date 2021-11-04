@@ -12,6 +12,8 @@ import CoursesPage from './CoursesPage.js';
 import BuddiesPage from './BuddiesPage.js';
 import SideMenu from './SideMenu.js';
 import AppMode from './AppMode.js';
+import NotificationToast from './NotificationToast.js';
+import PopUpModal from './PopUpModal.js';
 
 library.add(faWindowClose,faEdit, faCalendar, 
             faSpinner, faSignInAlt, faBars, faTimes, faSearch,
@@ -24,6 +26,14 @@ class App extends React.Component {
     this.state = {mode: AppMode.LOGIN,
                   menuOpen: false,
                   modalOpen: false,
+                  notificationToastOpen: false,
+                  toastTextColor: 'black',
+                  toastBackgroundColor: 'gray', 
+                  toastMessage: "Round Deleted",
+                  popUpModalOpen: false,
+                  popUpModalText: "Are you sure you want to delete this round?",
+                  popUpModalButtons: {"close": this.closeModal,
+                                      "save": this.closeModal },
                   userData: {accountData: {},
                              identityData: {},
                              speedgolfData: {},
@@ -170,9 +180,19 @@ class App extends React.Component {
     this.setState({userData: newUserData});
   }
 
+  closeToast = () => {
+    this.setState({notificationToastOpen: false});
+
+  }
+
+  closeModal = () => {
+    this.setState({popUpModalOpen : false});
+  }
+
   render() {
     return (
       <>
+
         <NavBar mode={this.state.mode}
                 menuOpen={this.state.menuOpen}
                 toggleMenuOpen={this.toggleMenuOpen}
@@ -184,7 +204,7 @@ class App extends React.Component {
                   setMode={this.setMode} 
                   menuOpen={this.state.menuOpen}
                   modalOpen={this.state.modalOpen}/> 
-        {this.state.menuOpen  ? <SideMenu logOut={this.logOut}/> : null}
+    
         {
           {LoginMode:
             <LoginPage modalOpen={this.state.modalOpen}
@@ -206,7 +226,8 @@ class App extends React.Component {
                         modalOpen={this.state.modalOpen}
                         toggleModalOpen={this.toggleModalOpen} 
                         menuOpen={this.state.menuOpen}
-                        userId={this.state.userId}/>,
+                        userId={this.state.userId}
+                        closeModal={this.closeModal}/>,
           CoursesMode:
             <CoursesPage modalOpen={this.state.modalOpen}
                         toggleModalOpen={this.toggleModalOpen} 
@@ -218,7 +239,9 @@ class App extends React.Component {
                         menuOpen={this.state.menuOpen}
                         userId={this.state.userId}/>
         }[this.state.mode]
-        }
+  }
+
+        {this.state.menuOpen  ? <SideMenu logOut={this.logOut}/> : null}
       </>
     ); 
   }
