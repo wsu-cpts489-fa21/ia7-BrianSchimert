@@ -35,9 +35,9 @@ class RoundsPage extends React.Component {
     }
     
     initiateDeleteRound = (val) => {
-        this.setState({deleteId: val, notificationToastOpen: false, popUpModalOpen: true},
-        () => alert("Confirm delete goes here!"));
-        this.props.deleteRound(val);
+        this.setState({deleteId: val, notificationToastOpen: false, popUpModalOpen: true});
+        //() => alert("Confirm delete goes here!"));
+        //this.props.deleteRound(val);  test delete
     }
 
     closeToast = () => {
